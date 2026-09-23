@@ -38,13 +38,13 @@ Edit, save, run `npm run build`, redeploy.
 
 ## Redeploy
 
-Not set up yet: there is no remote and no workflow. Session 1 steps 8 and 9 in `PLAN.md` create the GitHub repository, set `site:` in `astro.config.mjs` and add `.github/workflows/deploy.yml`. Once they are done:
+The site is published from this repository by `.github/workflows/deploy.yml` on every push to `main`.
 
 1. `git add -A`
 2. `git commit -m "Describe the change"`
 3. `git push`
 
-GitHub Actions then builds and publishes the site in about two minutes; watch the Actions tab go green.
+GitHub Actions builds and publishes the site in about a minute; watch the Actions tab go green, or run `gh run watch`. The live address is the one set as `site` in `astro.config.mjs`.
 
 ## Rules that never change
 

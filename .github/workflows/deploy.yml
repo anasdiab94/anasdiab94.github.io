@@ -1,0 +1,40 @@
+# Builds the site and publishes it to GitHub Pages on every push to main.
+# Versions per https://docs.astro.build/en/guides/deploy/github/ (checked 2026-09-23).
+# EMPLOYER_TERMS is the organization-name pattern list read by scripts/check-site.mjs
+# from Session 2 onward; it is a repository secret, never a committed file.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CI: 'true'
+      EMPLOYER_TERMS: ${{ secrets.EMPLOYER_TERMS }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v7
+      - name: Install, build and upload the site
+        uses: withastro/action@v6
+        with:
+          node-version: 22
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

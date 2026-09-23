@@ -1,0 +1,19 @@
+# Build output and tooling
+node_modules/
+dist/
+.astro/
+
+# Private working material: never committed, never published
+_private/
+docs/
+PLAN.md
+*.docx
+*.tmp
+.~lock.*#
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Claude Code session tooling (launch config); not part of the site
+.claude/

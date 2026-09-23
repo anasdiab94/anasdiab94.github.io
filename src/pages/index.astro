@@ -1,0 +1,12 @@
+---
+// The main page. Session 1: the cover sheet only. Later sessions add the index
+// of exhibits, the five capability folders, the inventory, the fact sheet and
+// the close of file, in that order, each as one component.
+import Base from '../layouts/Base.astro';
+import CoverSheet from '../components/CoverSheet.astro';
+import { buildDate } from '../lib/build-date';
+---
+
+<Base>
+  <CoverSheet buildDate={buildDate} />
+</Base>

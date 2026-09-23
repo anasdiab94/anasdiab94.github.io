@@ -1,0 +1,54 @@
+---
+// A rubber stamp in teal ink. Two instances exist on the whole site:
+// RECEIVED on the cover and END OF FILE on the close. Rendered in its final
+// state; the motion layer (Session 7) animates the settle for visitors who
+// have motion on.
+interface Props {
+  label: string;
+  date?: string;
+  class?: string;
+}
+const { label, date, class: className = '' } = Astro.props;
+---
+
+<div class:list={['stamp', 'typed', className]} data-animate="stamp" role="img" aria-label={date ? `${label} ${date}` : label}>
+  <span class="stamp-label">{label}</span>
+  {date && <span class="stamp-date">{date}</span>}
+</div>
+
+<style>
+  .stamp {
+    position: absolute;
+    right: clamp(12px, 4vw, 40px);
+    bottom: clamp(12px, 3vw, 28px);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 12px;
+    border: 3px solid var(--accent-paper);
+    border-radius: 6px;
+    color: var(--accent-paper);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.1;
+    transform: rotate(-8deg);
+    opacity: 0.92;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .stamp-date {
+    font-weight: 400;
+    font-size: 11px;
+  }
+  @media (max-width: 767px) {
+    .stamp {
+      font-size: 11px;
+      padding: 6px 9px;
+      border-width: 2px;
+    }
+    .stamp-date {
+      font-size: 10px;
+    }
+  }
+</style>

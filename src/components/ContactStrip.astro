@@ -1,0 +1,83 @@
+---
+// The one sticky element per viewport: bottom of the phone screen, top of the
+// desktop screen (with the name). Email, LinkedIn, Résumé (PDF). No other bar.
+import { site } from '../lib/site';
+const { contact, ui, identity } = site;
+---
+
+<nav class="contact-strip" aria-label="Contact">
+  <span class="strip-name typed" aria-hidden="true">{identity.name}</span>
+  <a class="strip-link" href={`mailto:${contact.email}`}>{ui.email_label}</a>
+  <a class="strip-link" href={contact.linkedin} rel="me noopener">{ui.linkedin_label}</a>
+  <a class="strip-link strip-resume" href={contact.pdf}>{ui.resume_label}</a>
+</nav>
+
+<style>
+  .contact-strip {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    height: calc(var(--strip-h) + env(safe-area-inset-bottom, 0px));
+    padding: 0 12px env(safe-area-inset-bottom, 0px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: var(--desk);
+    color: var(--fg-desk);
+    border-top: 1px solid color-mix(in srgb, var(--fg-desk) 18%, transparent);
+    font-family: var(--font-structure);
+  }
+  .strip-name {
+    display: none;
+    font-size: 13px;
+    color: var(--fg-desk);
+  }
+  .strip-link {
+    color: var(--fg-desk);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    border-radius: 6px;
+  }
+  .strip-link:hover,
+  .strip-link:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .strip-resume {
+    background: var(--accent-desk);
+    color: var(--desk);
+    font-weight: 600;
+  }
+  .strip-resume:hover,
+  .strip-resume:focus-visible {
+    text-decoration: none;
+    filter: brightness(1.08);
+  }
+  @media (min-width: 768px) {
+    .contact-strip {
+      position: sticky;
+      top: 0;
+      bottom: auto;
+      height: var(--strip-h);
+      padding: 0 24px;
+      justify-content: flex-end;
+      gap: 16px;
+      border-top: 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--fg-desk) 18%, transparent);
+    }
+    .strip-name {
+      display: inline;
+      margin-right: auto;
+    }
+  }
+</style>

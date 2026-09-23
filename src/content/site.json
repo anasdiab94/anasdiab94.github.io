@@ -1,0 +1,28 @@
+{
+  "naming": "named",
+  "identity": {
+    "name": "Anas Diab",
+    "file_no": "FILE No. 2026-A · PERSONAL ARCHIVE",
+    "cover_line": "I make data you can trust, then explain it in the time you have."
+  },
+  "ledger": [
+    { "value": "55,000+", "label": "RECORDS" },
+    { "value": "10+", "label": "COUNTRIES" },
+    { "value": "20+", "label": "NOTES AND BRIEFS" }
+  ],
+  "contact": {
+    "email": "amdiab22@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/anas-m-diab",
+    "pdf": "/AnasDiab_Resume.pdf"
+  },
+  "ui": {
+    "email_label": "Email",
+    "linkedin_label": "LinkedIn",
+    "resume_label": "Résumé (PDF)",
+    "skip_link": "Skip to fact sheet",
+    "scroll_cue": "Scroll to open file",
+    "stamp_received": "RECEIVED",
+    "motion_label": "Motion",
+    "theme_label": "Theme"
+  }
+}

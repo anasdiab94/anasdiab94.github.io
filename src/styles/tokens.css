@@ -1,0 +1,38 @@
+/* Design tokens. Values measured against WCAG 2.x on 2026-09-12 (PLAN.md section 1).
+   Rule: anything on paper uses --ink and --accent-paper; anything on kraft uses --ink;
+   anything drawn on the desk uses --fg-desk and --accent-desk. Light mode swaps only
+   the three desk tokens. A dark sheet of paper is never built. */
+
+:root {
+  /* paper (never changes) */
+  --paper: #F2EBDC;
+  --plate: #F7F1E5;
+  --ink: #1C1A17;
+  --kraft: #C9A96E;
+  --accent-paper: #0F5F5C;
+  --on-accent: #F2EBDC;
+
+  /* desk, dark (default) */
+  --desk: #141210;
+  --fg-desk: #E8E2D6;
+  --accent-desk: #5FB3AE;
+
+  /* type */
+  --font-structure: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Courier Prime", "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --font-serif: Charter, "Iowan Old Style", Georgia, serif;
+
+  /* layout */
+  --strip-h: 56px;
+  --sheet-pad: 20px;
+  --sheet-max: 880px;
+  --ruling: color-mix(in srgb, var(--ink) 6%, transparent);
+  --ease-settle: cubic-bezier(.2, .8, .2, 1);
+}
+
+/* light desk: dormant until Session 6 sets data-theme from the head script */
+html[data-theme="light"] {
+  --desk: #D9D2C3;
+  --fg-desk: #1C1A17;
+  --accent-desk: #0B4A48;
+}

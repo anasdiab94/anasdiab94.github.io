@@ -1,0 +1,38 @@
+---
+// The one layout. Head metadata, fonts, the skip link and the contact strip.
+// Session 2 adds the is:inline theme/motion script; Session 8 adds OG, JSON-LD
+// and the canonical URL once the site URL exists.
+import '../styles/global.css';
+import archivoUrl from '../assets/fonts/archivo-latin-wght-normal.woff2?url';
+import courierUrl from '../assets/fonts/courier-prime-latin-400-normal.woff2?url';
+import ContactStrip from '../components/ContactStrip.astro';
+import { site } from '../lib/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = site.identity.name, description = site.identity.cover_line } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" as="font" type="font/woff2" href={archivoUrl} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={courierUrl} crossorigin />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <a class="visually-hidden" href="#fact-sheet">{site.ui.skip_link}</a>
+    <ContactStrip />
+    <main id="main">
+      <slot />
+    </main>
+  </body>
+</html>

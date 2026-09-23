@@ -1,0 +1,113 @@
+---
+// Scene 1, the cover sheet: name, the cover line, three approved ledger numbers,
+// and the RECEIVED stamp. No organization name, no job title, no location.
+import { site } from '../lib/site';
+import Stamp from './Stamp.astro';
+
+interface Props {
+  buildDate: string;
+}
+const { buildDate } = Astro.props;
+const { identity, ledger, ui } = site;
+---
+
+<section class="cover" aria-labelledby="cover-name">
+  <div class="sheet cover-sheet ruled">
+    <p class="file-no typed">{identity.file_no}</p>
+    <h1 id="cover-name" class="cover-name">{identity.name}</h1>
+    <p class="cover-line">{identity.cover_line}</p>
+    <dl class="ledger typed" aria-label="Ledger">
+      {ledger.map((cell) => (
+        <div class="ledger-cell">
+          <dt class="ledger-label">{cell.label}</dt>
+          <dd class="ledger-value">{cell.value}</dd>
+        </div>
+      ))}
+    </dl>
+    <Stamp label={ui.stamp_received} date={buildDate} class="cover-stamp" />
+  </div>
+  <p class="foot-cue typed" aria-hidden="true">{ui.scroll_cue}</p>
+</section>
+
+<style>
+  .cover {
+    min-height: calc(100svh - var(--strip-h));
+    display: grid;
+    place-items: center;
+    padding: clamp(16px, 4vw, 48px) var(--sheet-pad);
+  }
+  .cover-sheet {
+    width: 100%;
+    padding-top: clamp(28px, 6vw, 72px);
+    padding-bottom: clamp(56px, 10vw, 96px);
+  }
+  /* The one data-inspired touch: a faint ledger ruling printed on the paper. */
+  .ruled {
+    background-image:
+      linear-gradient(var(--ruling) 1px, transparent 1px),
+      linear-gradient(90deg, var(--ruling) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-color: var(--paper);
+  }
+  .file-no {
+    display: none;
+    margin: 0 0 24px;
+    font-size: 12px;
+    color: var(--ink);
+  }
+  .cover-name {
+    margin: 0;
+    font-family: var(--font-structure);
+    font-weight: 900;
+    font-size: clamp(44px, 9vw, 112px);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .cover-line {
+    margin: 20px 0 0;
+    max-width: 36ch;
+    font-size: clamp(17px, 1.6vw, 22px);
+    line-height: 1.4;
+    font-weight: 400;
+  }
+  .ledger {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    margin: 28px 0 0;
+    padding: 12px 0 0;
+    border-top: 1px solid var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  /* dt (label) precedes dd (value) in the markup, as HTML requires; the value
+     is shown above the label by reversing the column. */
+  .ledger-cell {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2px;
+  }
+  .ledger-value {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .ledger-label {
+    margin: 0;
+    font-size: 11px;
+  }
+  .foot-cue {
+    display: none;
+    margin: 20px 0 0;
+    font-size: 12px;
+    color: var(--fg-desk);
+  }
+  @media (min-width: 768px) {
+    .file-no,
+    .foot-cue {
+      display: block;
+    }
+  }
+</style>
